@@ -8,4 +8,4 @@ const getCelsiusTemperatureInput = (page: Page) =>
 
 const getFahrenheitTemperatureInput = (page: Page) => page.getByLabel("fahrenheit");
 
-export {getArticle, getCelsiusTemperatureInput, getFahrenheitTemperatureInput}
+export {getArticle, getCelsiusTemperatureInput, getFahrenheitTemperatureInput};
