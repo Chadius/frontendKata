@@ -2,6 +2,7 @@ import './App.css'
 import Counter from "./counter/Counter.tsx";
 import TemperatureConverter from "./temperatureConverter/TemperatureConverter.tsx";
 import FlightBooker from "./flightBooker/FlightBooker.tsx";
+import Timer from "./timer/Timer.tsx";
 
 function App() {
 
@@ -19,6 +20,10 @@ function App() {
             <article aria-label={"flight booker"}>
                 <h1>Flight Booker</h1>
                 <FlightBooker/>
+            </article>
+            <article aria-label={"timer"}>
+                <h1>Timer</h1>
+                <Timer/>
             </article>
         </>
     )
