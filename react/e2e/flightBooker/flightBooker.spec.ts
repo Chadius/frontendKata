@@ -1,12 +1,17 @@
 import {expect, test} from "@playwright/test";
 import {goToHomePage} from "../app";
 import {
-    changeFlightType, clickOnBookFlightButton,
+    changeFlightType,
+    clickOnBookFlightButton,
     dateToString,
     getArrivalDateInput,
-    getArticle, getBookFlightButton, getBookStatusMessage,
+    getArticle,
+    getBookFlightButton,
+    getBookStatusMessage,
     getDepartureDateInput,
-    getFightTypeDropdown, typeArrivalDate, typeDepartureDate
+    getFightTypeDropdown,
+    typeArrivalDate,
+    typeDepartureDate
 } from "./flightBooker";
 import {FlightType} from "../../src/flightBooker/logic";
 

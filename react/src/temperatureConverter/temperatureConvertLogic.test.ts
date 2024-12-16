@@ -1,4 +1,5 @@
 import {convertCelsiusToFahrenheit, convertFahrenheitToCelsius} from "./temperatureConvertLogic";
+import {describe, expect, it} from "vitest";
 
 describe('Temperature Convert Logic', () => {
     it("converts Celsius to Fahrenheit", () => {

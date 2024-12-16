@@ -7,13 +7,14 @@ import {
     TimerState,
     updateTimeElapsed
 } from "./timerState";
+import {describe, it, beforeEach, afterEach, vi, MockInstance, expect} from "vitest";
 
 const START_TIME_MS = 100;
 
 describe("timerState", () => {
-    let dateSpy: jest.SpyInstance;
+    let dateSpy: MockInstance<() => number>
     beforeEach(() => {
-        dateSpy = jest.spyOn(Date, "now").mockReturnValue(START_TIME_MS)
+        dateSpy = vi.spyOn(Date, "now").mockReturnValue(START_TIME_MS)
     })
     afterEach(() => {
         dateSpy.mockRestore()

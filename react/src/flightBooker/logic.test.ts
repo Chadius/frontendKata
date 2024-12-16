@@ -1,3 +1,4 @@
+import {describe, expect, it} from "vitest";
 import {FlightType, getFlightStatusMessage, newFlightBookerData, validateFieldStatus} from "./logic";
 
 describe('Flight Booker', () => {
