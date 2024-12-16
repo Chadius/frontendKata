@@ -1,5 +1,12 @@
 import {Page} from "@playwright/test";
 import {FlightType} from "../../src/flightBooker/logic";
+import {goToHomePage} from "../app";
+
+const navigateToArticle = async (page: Page) => {
+    await goToHomePage(page);
+    await page.getByRole("link", {name: "Flight Booker"}).click()
+    return getArticle(page);
+}
 
 const getArticle = (page: Page) =>
     page.getByRole("article", {name: "flight booker"});
@@ -50,4 +57,5 @@ export {
     getBookFlightButton,
     clickOnBookFlightButton,
     getBookStatusMessage,
+    navigateToArticle,
 }

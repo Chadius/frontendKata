@@ -34,13 +34,14 @@ const Timer = () => {
     }
 
     return (
-        <>
+        <article aria-label={"timer"}>
+            <h1>Timer</h1>
             <progress id={"timer"} value={getGaugeRatio(timerState)}></progress>
             <p id={"time-elapsed"}>{formatTimeElapsed(getTimeElapsed(timerState))}</p>
             <input type={"range"} min={100} max={20000} defaultValue={timerState.duration} id={"duration"}
                    onChange={onChangeDuration}></input>
             <button onClick={resetTimerOnClick}>Reset</button>
-        </>
+        </article>
     )
 };
 

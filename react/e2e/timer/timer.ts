@@ -1,4 +1,11 @@
 import {Page} from "@playwright/test";
+import {goToHomePage} from "../app";
+
+const navigateToTimer = async (page: Page) => {
+    await goToHomePage(page);
+    await page.getByRole("link", {name: "Timer"}).click()
+    return getArticle(page);
+}
 
 const getArticle = (page: Page) =>
     page.getByRole("article", {name: "timer"});
@@ -37,4 +44,5 @@ export {
     clickOnResetButton,
     moveRangeInput,
     pauseMockClock,
+    navigateToTimer,
 }

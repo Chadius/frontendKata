@@ -49,7 +49,9 @@ const FlightBooker = () => {
     }
 
     return (
-        <>
+        <article aria-label={"flight booker"}>
+            <h1>Flight Booker</h1>
+
             <select name="flightType" id="flightType" defaultValue={flightBookerStatus.flightType}
                     onChange={onChangeFlightType}>
                 <option value={FlightType.ONE_WAY_FLIGHT}>One-Way Flight</option>
@@ -68,7 +70,7 @@ const FlightBooker = () => {
             />
             <button disabled={!flightBookerStatus.enableBookButton} onClick={onClickBookButton}>Book</button>
             <p id={"bookStatus"}>{flightStatusMessage}</p>
-        </>
+        </article>
     )
 };
 

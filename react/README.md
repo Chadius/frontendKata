@@ -16,7 +16,13 @@ Right now keep the front end as dumb as possible, so I don't have to test inputs
 
 ## Timer
 I was almost done when I noticed a surprise requirement: The timer has to stop when it maxes out and start once the duration is increased.
-This introduced a double rendering problem, I'm certain multiple state setters are going off, but I'm not certain how to handle it.
+UseEffect when you need an external system (like a timer).
+Also, in the Use Effect you need to delete the timer - JavaScript scopes the timer outside the page so rerendering will not get rid of it.
+
+## CRUD
+Finally.
+Lots of testing but otherwise it's looking good.
+I just need to design and css it.
 
 # Project notes
 ## Jest config

@@ -18,12 +18,14 @@ const TemperatureConverter = () => {
     }
 
     return (
-        <>
+        <article aria-label={"temperature converter"}>
+            <h1>Temperature Converter</h1>
             <label htmlFor="celsius">Celsius:</label>
             <input id="celsius" name="celsius" type={"number"} value={degreesCelsius} onChange={onChangeCelsius}/>
             <label htmlFor="fahrenheit">Fahrenheit:</label>
-            <input id="fahrenheit" name="fahrenheit" type={"number"} value={degreesFahrenheit} onChange={onChangeFahrenheit}/>
-        </>
+            <input id="fahrenheit" name="fahrenheit" type={"number"} value={degreesFahrenheit}
+                   onChange={onChangeFahrenheit}/>
+        </article>
     )
 };
 

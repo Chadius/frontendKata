@@ -1,16 +1,13 @@
 import {expect, test} from '@playwright/test';
-import {clickOnCountButton, getArticle, getCounterTextBox} from "./counter";
-import {goToHomePage} from "../app";
+import {clickOnCountButton, getCounterTextBox, navigateToCounter} from "./counter";
 
 test('has article with the name of the component', async ({page}) => {
-    await goToHomePage(page);
-    const article = getArticle(page);
+    const article = await navigateToCounter(page);
     await expect(article).toHaveText(/Counter/);
 });
 
 test('can click on button to increment count', async ({page}) => {
-    await goToHomePage(page);
-    const article = getArticle(page);
+    const article = await navigateToCounter(page);
 
     const counterTextBox = getCounterTextBox(page);
     await expect(counterTextBox).toHaveValue("0");
