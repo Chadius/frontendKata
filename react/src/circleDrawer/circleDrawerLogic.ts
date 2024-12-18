@@ -144,6 +144,23 @@ const selectCircle = ({circleDrawerState, x, y}: { circleDrawerState: CircleDraw
     circleDrawerState.selectedCircleId = closestCircleId.id
 }
 
+const compressChangeCircleRadiusActionsAndClearRedo = (circleDrawerState: CircleDrawerState, changeCircleRadiusAction: ChangeCircleRadiusAction) => {
+    if (circleDrawerState.undoHistory.length === 0) return changeCircleRadiusAction
+    const previousAction = circleDrawerState.undoHistory[circleDrawerState.undoHistory.length - 1]
+    if (
+        previousAction.type !== CircleDrawerActionType.CHANGE_CIRCLE_RADIUS
+        || previousAction.id !== changeCircleRadiusAction.id
+    ) {
+        addNewActionToUndoAndClearRedo(circleDrawerState, changeCircleRadiusAction)
+        return
+    }
+    circleDrawerState.undoHistory[circleDrawerState.undoHistory.length - 1] = {
+        ...changeCircleRadiusAction,
+        previousRadius: previousAction.previousRadius,
+    }
+    circleDrawerState.redoHistory = []
+};
+
 const changeCircleDiameter = ({circleDrawerState, diameter}: {
     circleDrawerState: CircleDrawerState,
     diameter: number
@@ -158,7 +175,7 @@ const changeCircleDiameter = ({circleDrawerState, diameter}: {
         previousRadius: circleDrawerState.circles[circleDrawerState.selectedCircleId].radius,
         radius: diameter / 2,
     }
-    addNewActionToUndoAndClearRedo(circleDrawerState, changeCircleRadiusAction)
+    compressChangeCircleRadiusActionsAndClearRedo(circleDrawerState, changeCircleRadiusAction)
     updateCircleInState(circleDrawerState, changeCircleRadiusAction)
 }
 

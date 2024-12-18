@@ -6,6 +6,7 @@ import TemperatureConverter from "./temperatureConverter/TemperatureConverter.ts
 import Crud from "./crud/Crud.tsx";
 import Timer from "./timer/Timer.tsx";
 import FlightBooker from "./flightBooker/FlightBooker.tsx";
+import CircleDrawer from "../e2e/circleDrawer/CircleDrawer.tsx";
 
 function App() {
     return (
@@ -17,6 +18,7 @@ function App() {
                 <Route path={"flightBooker"} element={<FlightBooker/>}></Route>
                 <Route path={"timer"} element={<Timer/>}></Route>
                 <Route path={"crud"} element={<Crud/>}></Route>
+                <Route path={"circleDrawer"} element={<CircleDrawer/>}></Route>
             </Routes>
         </Router>
     )

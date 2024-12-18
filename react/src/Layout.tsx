@@ -20,6 +20,9 @@ const Layout = () => {
                     <li>
                         <Link to="/crud">Crud</Link>
                     </li>
+                    <li>
+                        <Link to="/circleDrawer">Circle Drawer</Link>
+                    </li>
                 </ul>
             </nav>
 

@@ -19,16 +19,38 @@ describe('Circle Drawer', () => {
         expect(circles[0]).toEqual(expect.objectContaining({x: 100, y: 200, selected: false}))
     })
 
-    it("can change the circle diameter", () => {
-        const circleDrawerState: CircleDrawerState = newCircleDrawerState()
-        addNewCircle({circleDrawerState, centerX: 100, centerY: 200})
-        selectCircle({circleDrawerState, x: 100, y: 200})
-        changeCircleDiameter({circleDrawerState, diameter: 50})
+    describe('changing circle diameter', () => {
+        let circleDrawerState: CircleDrawerState
+        beforeEach(() => {
+            circleDrawerState = newCircleDrawerState()
+            addNewCircle({circleDrawerState, centerX: 100, centerY: 200})
+            selectCircle({circleDrawerState, x: 100, y: 200})
+        })
 
-        const circles = getCirclesToDraw(circleDrawerState)
-        expect(circles).toHaveLength(1)
-        expect(circles[0]).toEqual(expect.objectContaining({x: 100, y: 200, radius: 25, selected: true}))
-    })
+        it("can change the circle diameter", () => {
+            changeCircleDiameter({circleDrawerState, diameter: 50})
+
+            const circles = getCirclesToDraw(circleDrawerState)
+            expect(circles).toHaveLength(1)
+            expect(circles[0]).toEqual(expect.objectContaining({x: 100, y: 200, radius: 25, selected: true}))
+        })
+
+        it("will undo multiple changes to a single circle in a single step", () => {
+            changeCircleDiameter({circleDrawerState, diameter: 10})
+            addNewCircle({circleDrawerState, centerX: 200, centerY: 200})
+            selectCircle({circleDrawerState, x: 100, y: 200})
+            changeCircleDiameter({circleDrawerState, diameter: 15})
+            changeCircleDiameter({circleDrawerState, diameter: 20})
+            changeCircleDiameter({circleDrawerState, diameter: 30})
+            changeCircleDiameter({circleDrawerState, diameter: 40})
+            changeCircleDiameter({circleDrawerState, diameter: 50})
+
+            undoLastChange(circleDrawerState)
+
+            const circles = getCirclesToDraw(circleDrawerState)
+            expect(circles[0]).toEqual(expect.objectContaining({x: 100, y: 200, radius: 5, selected: true}))
+        })
+    });
 
     describe("selecting a circle", () => {
         let circleDrawerState: CircleDrawerState
@@ -76,7 +98,7 @@ describe('Circle Drawer', () => {
             addNewCircle({circleDrawerState, centerX: 300, centerY: 40})
         })
 
-        it("can undo previously made changes", () => {
+        it("can undo previously made changes (the same circle resized counts as a single change)", () => {
             undoLastChange(circleDrawerState)
             let circles = getCirclesToDraw(circleDrawerState)
             expect(circles).toHaveLength(1)
@@ -85,9 +107,8 @@ describe('Circle Drawer', () => {
             undoLastChange(circleDrawerState)
             circles = getCirclesToDraw(circleDrawerState)
             expect(circles).toHaveLength(1)
-            expect(circles[0].radius).toBe(5)
+            expect(circles[0].radius).not.toBe(25)
 
-            undoLastChange(circleDrawerState)
             undoLastChange(circleDrawerState)
             circles = getCirclesToDraw(circleDrawerState)
             expect(circles).toHaveLength(0)
@@ -97,16 +118,11 @@ describe('Circle Drawer', () => {
             undoLastChange(circleDrawerState)
             undoLastChange(circleDrawerState)
             undoLastChange(circleDrawerState)
-            undoLastChange(circleDrawerState)
 
             redoLastUndo(circleDrawerState)
             let circles = getCirclesToDraw(circleDrawerState)
             expect(circles).toHaveLength(1)
             expect(circles[0]).toEqual(expect.objectContaining({x: 100, y: 200}))
-
-            redoLastUndo(circleDrawerState)
-            circles = getCirclesToDraw(circleDrawerState)
-            expect(circles[0].radius).toEqual(5)
 
             redoLastUndo(circleDrawerState)
             circles = getCirclesToDraw(circleDrawerState)
@@ -121,9 +137,7 @@ describe('Circle Drawer', () => {
             undoLastChange(circleDrawerState)
             undoLastChange(circleDrawerState)
             undoLastChange(circleDrawerState)
-            undoLastChange(circleDrawerState)
 
-            redoLastUndo(circleDrawerState)
             redoLastUndo(circleDrawerState)
             redoLastUndo(circleDrawerState)
 
@@ -141,6 +155,3 @@ describe('Circle Drawer', () => {
     })
 });
 
-/*
-"redo is not possible if this is the most recent new action"
- */
